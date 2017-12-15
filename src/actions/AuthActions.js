@@ -1,6 +1,6 @@
-export const emailChanged = (text) => {
+export const fieldChange = (payload) => {
   return {
-    type: 'EMAIL_CHANGED',
-    payload: text
+    type: payload.actionType,
+    payload
   };
 };

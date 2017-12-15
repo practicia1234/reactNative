@@ -4,7 +4,7 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged } from '../../actions';
+import { fieldChange } from '../../actions';
 import { Button, Section, Input } from '../Helpers';
 
 class SignUpStep2 extends Component {
@@ -20,26 +20,50 @@ class SignUpStep2 extends Component {
   };
 
   // on email change call this method
-  onEmailChange(text) {
-    console.log(text);
-    this.props.emailChanged(text); // emailChanged is the action creator
+  onFieldChange(e, text) {
+    const fieldInfo = {
+      actionType: e.actionType,
+      value: text
+    };
+    this.props.fieldChange(fieldInfo); // fieldChange is the action creator
   }
 
   // Render start
   render() {
     //const { navigate } = this.props.navigation;
     const { userInfo } = this.props.navigation.state.params;
-    console.log(this.props.email);
+    console.log(this.props);
     // render will return some dom
     return (
       <View style={styles.contaoner}>
         <Text style={styles.headerText}> {userInfo.showText} </Text>
         <Section>
           <Input
-            label="Email"
             placeholder="email@gmail.com"
-            onChangeText={this.onEmailChange.bind(this)}
+            onChangeText={this.onFieldChange.bind(this, { actionType: 'EMAIL_CHANGED' })}
             value={this.props.email}
+          />
+        </Section>
+        <Section>
+          <Input
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={this.onFieldChange.bind(this, { actionType: 'PASSWORD_CHANGED' })}
+            value={this.props.password}
+          />
+        </Section>
+        <Section>
+          <Input
+            placeholder="First Name"
+            onChangeText={this.onFieldChange.bind(this, { actionType: 'FIRST_NAME' })}
+            value={this.props.firstName}
+          />
+        </Section>
+        <Section>
+          <Input
+            placeholder="Last Name"
+            onChangeText={this.onFieldChange.bind(this, { actionType: 'LAST_NAME' })}
+            value={this.props.lastName}
           />
         </Section>
         <Section>
@@ -77,9 +101,7 @@ const styles = {
 };
 
 const mapStateToProps = ({ auth }) => {
-  console.log(auth);
-  const { email, password, error, loading } = auth; // getting data from reducer
-  return { email, password, error, loading }; // pass this data to component as props
+  return auth;
 };
 
-export default connect(mapStateToProps, { emailChanged })(SignUpStep2);
+export default connect(mapStateToProps, { fieldChange })(SignUpStep2);

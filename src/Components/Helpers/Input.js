@@ -5,10 +5,10 @@ import {
 
 class Input extends Component {
   render() {
-     const { placeholder } =this.props;
     return (
       <TextInput
         underlineColorAndroid='transparent'
+        secureTextEntry={this.props.secureTextEntry}
         placeholder={this.props.placeholder}
         placeholderTextColor="#AAAAAA"
         style={styles.inputStyle}

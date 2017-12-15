@@ -35,7 +35,7 @@ class SignUpStep1 extends Component {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={require('../../Assets/Images/logo.gif')}
+            source={require('../../Assets/Images/logo.png')}
           />
         </View>
         <View style={styles.contentArea}>
