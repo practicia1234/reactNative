@@ -4,20 +4,32 @@ import {
   View,
   Image,
 } from 'react-native';
-import Button from '../Helpers/Button';
-import Section from '../Helpers/Section';
+import { Button, Section } from '../Helpers';
 
 class SignUpStep1 extends Component {
   static navigationOptions = {
    header: null,
   };
   onPressSignupAs(e) {
-    console.log(e);
     const { navigate } = this.props.navigation;
-    navigate('SignUpStep2', { userType: e.userType });
-    // need to navigate to another page with this value
+    navigate('SignUpStep2', { userInfo: e });// Navigate to next screen
   }
   render() {
+    // define user type information
+    const userInfo = {
+      teacher: {
+        role: 'teacher',
+        showText: 'Teacher'
+      },
+      parent: {
+        role: 'parent',
+        showText: 'Parent'
+      },
+      student: {
+        role: 'student',
+        showText: 'Adult Student (18+)'
+      }
+    };
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
@@ -30,19 +42,19 @@ class SignUpStep1 extends Component {
           <Text style={styles.signInAs}>Sign Up As...</Text>
           <Section>
             <Button
-            onPress={this.onPressSignupAs.bind(this, { userType: 'Teacher' })}
+            onPress={this.onPressSignupAs.bind(this, userInfo.teacher)}
             >
               Teacher
             </Button>
           </Section>
           <Section>
             <Button
-            onPress={this.onPressSignupAs.bind(this, { userType: 'Parent' })}
+            onPress={this.onPressSignupAs.bind(this, userInfo.parent)}
             >Parent</Button>
           </Section>
           <Section>
             <Button
-            onPress={this.onPressSignupAs.bind(this, { userType: 'Student' })}
+            onPress={this.onPressSignupAs.bind(this, userInfo.student)}
             >Adult Student (18+)</Button>
           </Section>
         </View>

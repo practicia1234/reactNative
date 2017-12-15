@@ -32,4 +32,4 @@ const styles = {
     color: '#fff',
   }
 };
-export default Button;
+export { Button };

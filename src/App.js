@@ -1,20 +1,18 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from './reducers';
+import Router from './Router';
 
-import { StackNavigator } from 'react-navigation';
-//import HomeScreen from './Components/HomeScreen';
-//import ProfileScreen from './Components/ProfileScreen';
-import SignUpStep1 from './Components/Auth/SignUpStep1';
-import SignUpStep2 from './Components/Auth/SignUpStep2';
-
-
-const App = StackNavigator({
-  SignUpStep1: { screen: SignUpStep1 },
-  SignUpStep2: { screen: SignUpStep2 },
-});
-
+class App extends Component {
+  render() {
+    const store = createStore(reducers, {});
+    return (
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    );
+  }
+}
 
 export default App;

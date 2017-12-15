@@ -19,4 +19,4 @@ const styles = {
     paddingBottom: 10,
   }
 };
-export default Section;
+export { Section };

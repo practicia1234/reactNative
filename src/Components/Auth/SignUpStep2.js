@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View,
-  TextInput
+  View
 } from 'react-native';
-import Section from '../Helpers/Section';
-import Button from '../Helpers/Button';
+import { connect } from 'react-redux';
+import { emailChanged } from '../../actions';
+import { Button, Section, Input } from '../Helpers';
 
 class SignUpStep2 extends Component {
+  // Navigator information for this component
   static navigationOptions = {
     title: 'Sign Up [Step-2]',
     headerTitleStyle: {
@@ -17,54 +18,28 @@ class SignUpStep2 extends Component {
       alignSelf: 'center'
     },
   };
-  state = { text: '' };
+
+  // on email change call this method
+  onEmailChange(text) {
+    console.log(text);
+    this.props.emailChanged(text); // emailChanged is the action creator
+  }
+
+  // Render start
   render() {
     //const { navigate } = this.props.navigation;
-    const { userType } = this.props.navigation.state.params;
-    console.log(userType);
-
-    //console.log(this.props);
+    const { userInfo } = this.props.navigation.state.params;
+    console.log(this.props.email);
+    // render will return some dom
     return (
       <View style={styles.contaoner}>
-        <Text style={styles.headerText}> {userType} </Text>
+        <Text style={styles.headerText}> {userInfo.showText} </Text>
         <Section>
-          <TextInput
-            underlineColorAndroid='transparent'
-            placeholder="email@website.com"
-            placeholderTextColor="#AAAAAA"
-            style={styles.inputStyle}
-            onChangeText={(text) => this.setState({ text })}
-            value={this.state.text}
-          />
-        </Section>
-        <Section>
-          <TextInput
-            underlineColorAndroid='transparent'
-            placeholder="Password"
-            placeholderTextColor="#AAAAAA"
-            style={styles.inputStyle}
-            onChangeText={(text) => this.setState({ text })}
-            value={this.state.text}
-          />
-        </Section>
-        <Section>
-          <TextInput
-            underlineColorAndroid='transparent'
-            placeholder="First Name"
-            placeholderTextColor="#AAAAAA"
-            style={styles.inputStyle}
-            onChangeText={(text) => this.setState({ text })}
-            value={this.state.text}
-          />
-        </Section>
-        <Section>
-          <TextInput
-            underlineColorAndroid='transparent'
-            placeholder="Last Name"
-            placeholderTextColor="#AAAAAA"
-            style={styles.inputStyle}
-            onChangeText={(text) => this.setState({ text })}
-            value={this.state.text}
+          <Input
+            label="Email"
+            placeholder="email@gmail.com"
+            onChangeText={this.onEmailChange.bind(this)}
+            value={this.props.email}
           />
         </Section>
         <Section>
@@ -101,4 +76,10 @@ const styles = {
   },
 };
 
-export default SignUpStep2;
+const mapStateToProps = ({ auth }) => {
+  console.log(auth);
+  const { email, password, error, loading } = auth; // getting data from reducer
+  return { email, password, error, loading }; // pass this data to component as props
+};
+
+export default connect(mapStateToProps, { emailChanged })(SignUpStep2);
