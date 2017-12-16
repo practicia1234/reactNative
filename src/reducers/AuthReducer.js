@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, firstName: action.payload.value };
     case 'LAST_NAME':
       return { ...state, lastName: action.payload.value };
+    case 'SEARCH_TEACHER_CHANGED':
+      return { ...state, seacrhTeacherText: action.payload.value };
     default:
       return state;
   }

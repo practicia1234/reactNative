@@ -28,14 +28,27 @@ class SignUpStep2 extends Component {
     this.props.fieldChange(fieldInfo); // fieldChange is the action creator
   }
 
+  onPressSignUpStep2() {
+    const userData = {
+      role: this.props.navigation.state.params.userInfo.role,
+      othersInfo: this.props
+    };
+    if (userData.role === 'teacher') {
+      // call signUp finish actioin creator to finish the sign up process
+      console.log('teacher');
+    } else {
+      // Navigate to "SignUpStep3"  component with all the user input data
+      const { navigate } = this.props.navigation;
+      navigate('SignUpStep3', userData);// Navigate to next screen
+    }
+  }
   // Render start
   render() {
     //const { navigate } = this.props.navigation;
     const { userInfo } = this.props.navigation.state.params;
-    console.log(this.props);
     // render will return some dom
     return (
-      <View style={styles.contaoner}>
+      <View style={styles.container}>
         <Text style={styles.headerText}> {userInfo.showText} </Text>
         <Section>
           <Input
@@ -67,7 +80,12 @@ class SignUpStep2 extends Component {
           />
         </Section>
         <Section>
-          <Button style={styles.buttonLogin}>Submit</Button>
+          <Button
+            onPress={this.onPressSignUpStep2.bind(this)}
+            style={styles.buttonLogin}
+          >
+            Submit
+          </Button>
         </Section>
       </View>
     );
@@ -75,7 +93,7 @@ class SignUpStep2 extends Component {
 }
 
 const styles = {
-  contaoner: {
+  container: {
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     borderWidth: 0.5,
