@@ -4,7 +4,7 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fieldChange } from '../../actions';
+import { fieldChange, SignUpAction } from '../../actions';
 import { Button, Section, Input } from '../Helpers';
 
 class SignUpStep2 extends Component {
@@ -35,7 +35,11 @@ class SignUpStep2 extends Component {
     };
     if (userData.role === 'teacher') {
       // call signUp finish actioin creator to finish the sign up process
-      console.log('teacher');
+      const actypeDefine = {
+        actionType: 'SignUpstep2',
+        value: userData
+      };
+      this.props.SignUpAction(actypeDefine); // Action call
     } else {
       // Navigate to "SignUpStep3"  component with all the user input data
       const { navigate } = this.props.navigation;
@@ -119,7 +123,10 @@ const styles = {
 };
 
 const mapStateToProps = ({ auth }) => {
+  console.log('mapStateToProps');
+  console.log(auth);
+  console.log('mapStateToProps end');
   return auth;
 };
 
-export default connect(mapStateToProps, { fieldChange })(SignUpStep2);
+export default connect(mapStateToProps, { fieldChange, SignUpAction })(SignUpStep2);

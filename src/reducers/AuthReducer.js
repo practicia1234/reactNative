@@ -20,6 +20,20 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, lastName: action.payload.value };
     case 'SEARCH_TEACHER_CHANGED':
       return { ...state, seacrhTeacherText: action.payload.value };
+
+    case 'SIGNUP_SUCCESS':
+      return {
+        ...state,
+        ...INITIAL_STATE,
+        user: action.payload
+      };
+    case 'SIGNUP_FAIL':
+      return {
+        ...state,
+        error: 'Authentication Failed.',
+        coreError: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

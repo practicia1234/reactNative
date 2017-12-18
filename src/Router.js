@@ -6,10 +6,10 @@ import SearchTeachers from './Components/Auth/SearchTeachers';
 
 
 const RouterComponent = StackNavigator({
-  SearchTeachers: { screen: SearchTeachers },
   SignUpStep1: { screen: SignUpStep1 },
   SignUpStep2: { screen: SignUpStep2 },
   SignUpStep3: { screen: SignUpStep3 },
+  SearchTeachers: { screen: SearchTeachers },
 });
 
 
