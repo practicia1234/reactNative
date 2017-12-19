@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  ScrollView,
+  KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fieldChange, SignUpAction } from '../../actions';
@@ -52,46 +54,56 @@ class SignUpStep2 extends Component {
     const { userInfo } = this.props.navigation.state.params;
     // render will return some dom
     return (
-      <View style={styles.container}>
-        <Text style={styles.headerText}> {userInfo.showText} </Text>
-        <Section>
-          <Input
-            placeholder="email@gmail.com"
-            onChangeText={this.onFieldChange.bind(this, { actionType: 'EMAIL_CHANGED' })}
-            value={this.props.email}
-          />
-        </Section>
-        <Section>
-          <Input
-            secureTextEntry
-            placeholder="Password"
-            onChangeText={this.onFieldChange.bind(this, { actionType: 'PASSWORD_CHANGED' })}
-            value={this.props.password}
-          />
-        </Section>
-        <Section>
-          <Input
-            placeholder="First Name"
-            onChangeText={this.onFieldChange.bind(this, { actionType: 'FIRST_NAME' })}
-            value={this.props.firstName}
-          />
-        </Section>
-        <Section>
-          <Input
-            placeholder="Last Name"
-            onChangeText={this.onFieldChange.bind(this, { actionType: 'LAST_NAME' })}
-            value={this.props.lastName}
-          />
-        </Section>
-        <Section>
-          <Button
-            onPress={this.onPressSignUpStep2.bind(this)}
-            style={styles.buttonLogin}
-          >
-            Submit
-          </Button>
-        </Section>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="padding"
+      >
+      <View >
+        <ScrollView
+          contentContainerStyle={styles.contentContainer}
+
+        >
+          <Text style={styles.headerText}> {userInfo.showText} </Text>
+          <Section>
+            <Input
+              placeholder="email@gmail.com"
+              onChangeText={this.onFieldChange.bind(this, { actionType: 'EMAIL_CHANGED' })}
+              value={this.props.email}
+            />
+          </Section>
+          <Section>
+            <Input
+              secureTextEntry
+              placeholder="Password"
+              onChangeText={this.onFieldChange.bind(this, { actionType: 'PASSWORD_CHANGED' })}
+              value={this.props.password}
+            />
+          </Section>
+          <Section>
+            <Input
+              placeholder="First Name"
+              onChangeText={this.onFieldChange.bind(this, { actionType: 'FIRST_NAME' })}
+              value={this.props.firstName}
+            />
+          </Section>
+          <Section>
+            <Input
+              placeholder="Last Name"
+              onChangeText={this.onFieldChange.bind(this, { actionType: 'LAST_NAME' })}
+              value={this.props.lastName}
+            />
+          </Section>
+          <Section>
+            <Button
+              onPress={this.onPressSignUpStep2.bind(this)}
+              style={styles.buttonLogin}
+            >
+              Submit
+            </Button>
+          </Section>
+        </ScrollView>
       </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -102,8 +114,8 @@ const styles = {
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#9DDAEE',
-    flex: 1,
     padding: 10,
+    flex: 1
   },
   inputStyle: {
     height: 50,

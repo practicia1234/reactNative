@@ -3,6 +3,7 @@ import {
   Text,
   View,
   Image,
+  ScrollView
 } from 'react-native';
 import { Button, Section } from '../Helpers';
 
@@ -31,6 +32,7 @@ class SignUpStep1 extends Component {
       }
     };
     return (
+      <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
@@ -65,11 +67,15 @@ class SignUpStep1 extends Component {
           </Section>
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = {
+  contentContainer: {
+    flex: 1
+  },
   container: {
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
